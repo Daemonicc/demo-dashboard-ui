@@ -1,6 +1,6 @@
 const menus = document.querySelectorAll('.menu')
-const message = document.createElement('SPAN')
-const sections = document.querySelectorAll('section')
+const messageSpans = document.querySelectorAll('.message')
+const buttons = document.querySelectorAll('button')
 
 
 menus.forEach((menu) => {
@@ -10,6 +10,10 @@ menus.forEach((menu) => {
   })
 })
 
+buttons.forEach((button) => {
+  button.addEventListener('click', getInfo)
+})
+
 
 function removeActive() {
   menus.forEach((menu) => {
@@ -17,9 +21,8 @@ function removeActive() {
 })
 }
 
-generateJoke()
 
-function generateJoke() {
+function getInfo() {
   fetch('https://api.covid19api.com/summary', {
     method: 'GET',
     mode: 'cors',
@@ -30,21 +33,8 @@ function generateJoke() {
     }
   }).then((res) => res.json())
   .then((data) => {
-    console.log(data.Countries[125].NewConfirmed)
-    message.innerHTML = `The total Number of new cases in Nigeria is ${data.Countries[125].NewConfirmed} bringing the total cases to ${data.Countries[125].TotalConfirmed} <br> Stay safe Observe all Covid-19 protocols 😘😘`
-    console.log(message)
-    sections.forEach((section) => {
-      console.log(section)
-      section.appendChild(message)
+    messageSpans.forEach((message) => {
+      message.innerHTML= `The total Number of new Covid-19 cases in Nigeria is ${data.Countries[125].NewConfirmed} bringing the total cases to ${data.Countries[125].TotalConfirmed} <br> Stay safe Observe all Covid-19 protocols 😘😘`
     })
   })
 }
-
-// function generateJoke() {
-//   fetch('https://api.covid19api.com/summary', {
-//     headers: {
-//       'Accept': 'application/json'
-//     }
-//   }).then((res) => res.json())
-//   .then((data) => console.log(data.Countries[125]))
-// }

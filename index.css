@@ -118,3 +118,8 @@ section span {
 	color: grey;
 	margin-bottom: 0.5rem;
 }
+
+.message {
+	text-align: center;
+	margin-top: 1rem;
+}
